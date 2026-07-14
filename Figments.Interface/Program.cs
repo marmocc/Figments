@@ -1,24 +1,42 @@
-﻿using Avalonia;
-using System;
+﻿namespace Figments.Interface;
 
-namespace Figments.Interface;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Themes.Fluent;
 
-sealed class Program
+class Program
 {
-    // Initialization code. Don't use any Avalonia, third-party APIs or any
-    // SynchronizationContext-reliant code before AppMain is called: things aren't initialized
-    // yet and stuff might break.
-    [STAThread]
-    public static void Main(string[] args) => BuildAvaloniaApp()
-        .StartWithClassicDesktopLifetime(args);
+    public static void Main(string[] args)
+    {
+        bool headless = args.Contains("--headless");
+        if(headless) HeadlessMain(args);
+        else AppBuilder.Configure<Application>().UsePlatformDetect().Start(AppMain, args);
+    }
 
-    // Avalonia configuration, don't remove; also used by visual designer.
-    public static AppBuilder BuildAvaloniaApp()
-        => AppBuilder.Configure<App>()
-            .UsePlatformDetect()
-#if DEBUG
-            .WithDeveloperTools()
-#endif
-            .WithInterFont()
-            .LogToTrace();
+    public static void HeadlessMain(string[] args)
+    {
+        if(OperatingSystem.IsWindows())
+            NativeConsole.Attach();
+        Console.WriteLine("Hello, World!");
+    }
+
+    public static void AppMain(Application app, string[] args)
+    {
+        app.Styles.Add(new FluentTheme());
+        var window = new Window
+        {
+            Title = "Figments",
+            Width = 400,
+            Height = 300,
+            Content = new Label
+            {
+                Content = "Hello, World!",
+                FontSize = 24,
+                HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center,
+                VerticalAlignment = Avalonia.Layout.VerticalAlignment.Center,
+            }
+        };
+        window.Show();
+        app.Run(window);
+    }
 }
