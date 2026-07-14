@@ -1,2 +1,5 @@
 <Solution>
+  <Project Path="Figments.Library/Figments.Library.csproj" />
+  <Project Path="Figments.Daemon/Figments.Daemon.csproj" />
+  <Project Path="Figments.Interface/Figments.Interface.csproj" />
 </Solution>
