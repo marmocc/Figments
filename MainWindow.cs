@@ -10,7 +10,6 @@ namespace Figments;
 public class MainWindow : Window
 {
     private readonly TextBlock _titleLabel;
-    private readonly LinearGradientBrush _gradientBrush;
 
     public MainWindow()
     {
@@ -24,10 +23,10 @@ public class MainWindow : Window
         _titleLabel = new TextBlock
         {
             Text = "Figments",
-            FontFamily = Branding.MainFont,
+            FontFamily = Branding.LogoFont,
             FontSize = 96,
             FontWeight = FontWeight.Regular,
-            Foreground = new SolidColorBrush(Branding.Blue),
+            Foreground = new SolidColorBrush(Branding.Foreground),
             HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Center,
             Padding = new Thickness(20),
